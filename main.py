@@ -6,8 +6,9 @@
 
 from tkinter import *
 from tkinter import messagebox
-import datetime
+import datetime, time
 import os
+import easygui
 pathname = "usernames.txt"
 currentMap = "level 1.txt"
 window=Tk()
@@ -49,6 +50,16 @@ userNameEntry.grid(row=0,column=1)
 
 
 #================================================================START OF FUNCTIONS========================    
+
+
+def loseGame():
+    print('LOOOOOOSSSSEEEER')
+    print("You have lost the game. Better luck next time")
+    quit()
+
+def winGame():
+    print("Conglaturations u wun d gayem")
+    
 
 def getMapLocation(currentMap,x,y):
     lines = list(map(str.split, open(currentMap)))
@@ -117,8 +128,30 @@ def getReadlines(pathname):
         file.close()
         return newContent
 class battle:
-    def boss1(sword = 0):
-        print("Not yet implemented")
+    class bossOne:
+        def intro(sword = 0):
+            print("\n"*500)
+            print("Boss >  WHO AWAKENS ME?")
+            time.sleep(2)
+            print("\tYou > That would be me. If you have a problem, feel free to talk to my fist!")
+            time.sleep(1)
+            print("Boss > WAS THAT A CHALLENGE? DO YOU WANT TO TAKE ME ON?")
+            time.sleep(1)
+            user1 = input("\tYou (Y/N)  >")
+            time.sleep(1)
+            if user1.lower() in ["y", "yes", "ok"]:
+                print("Boss > You are a brave one, but do you really think you could win against someone as great and strong as me?")
+                time.sleep(1)
+                user2 = input("\tYou (Y/N)  >")
+                if user2.lower() in ["y", "yes", "ok"]:
+                    print("Boss > Pah! I fell off my throne at the thought of it! Let't go!")
+                    time.sleep(1)
+                    battle.bossOne.fight()
+                elif user2.lower() in ["n", "no"]
+                    print("Boss > You have the right attitude at least. Let's go.")
+
+            
+        
 
 #Function to load a txt file into the current level array
 def importLevel(fileName):
@@ -177,7 +210,6 @@ def startNewGame(playername, playerLocation):
     
     
     hp = 80
-
     #Initialises a class for the player
 
     #While loop that runs until the player is dead
@@ -214,6 +246,7 @@ def startNewGame(playername, playerLocation):
         else:
             print("Invalid command")
             addToLog("User tried an invalid command")
+    loseGame()
         
 
         
@@ -235,7 +268,7 @@ def move(playerLocation, deltaX, deltaY):
     if getMapLocation(currentMap, playerLocation[0], playerLocation[1]) == "B":
         print("The boss lives there. You have awoken him, therefore it is your task to slay him.")
         addToLog("Awoken Boss")
-        battle.boss1()
+        battle.bossOne.intro()
 
     printAndLog("New location: " + str(playerLocation[0]) + ", " + str(playerLocation[1]))
     return playerLocation
